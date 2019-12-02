@@ -1,0 +1,6 @@
+*.layout
+*.depend
+bin/
+obj/
+*.pdf
+*.cscope_file_list
