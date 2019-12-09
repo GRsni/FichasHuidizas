@@ -3,95 +3,80 @@
 #include <string.h>
 
 #include "fichas.h"
-
-
-
+#include "utility.h"
 
 tNodo *estadoInicial() {
     return crearNodo(tablero_inicial);
 }
 
 tNodo *crearNodo(int celdas[N][N]) {
-    tNodo *nodo = (tNodo *) malloc(sizeof(tNodo));
     int i, j;
-    for (i = 0; i < N; i++) {
-        for(j = 0; j < N; j++) {
+    tNodo* nodo = (tNodo *)malloc(sizeof(tNodo));
+    for(i = 0; i < 3; i++) {
+        for(j = 0; j < 3; j++) {
             nodo->celdas[i][j] = celdas[i][j];
         }
     }
+    inicializaPiezasBlancas(nodo);
+    inicializaPiezasNegras(nodo);
     return nodo;
 }
 
-
-tNodo *aplicaJugada(tNodo *actual, int jugador, int jugada) {
-    tNodo *nuevo = (tNodo *) malloc(sizeof(tNodo));
-    memcpy(nuevo, actual, sizeof(tNodo));
-//    nuevo->celdas[jugada][] = jugador;
-    return nuevo;
-}
-int esValida(tNodo *actual, int jugada) {
-    return (jugada >= 0 && jugada < 9 && actual->celdas[jugada] == 0) ; // si está vacía la posición, la jugada es válido
-}
-int opuesto( int jugador) {
-    return (jugador * -1);//Jugador 1 y Jugador -1
+void inicializaPiezasBlancas(tNodo *actual) {
+    actual->piezas[0][0][0] = 2;
+    actual->piezas[0][0][1] = 1;
+    actual->piezas[0][1][0] = 2;
+    actual->piezas[0][1][1] = 2;
 }
 
-int terminal(tNodo *Nodo, int jugador) {
-
-    int i = 0, res = 0;
-//    while (res == 0 && i < 8) {
-//        if(Nodo->celdas[opciones[i][0]] != 0 &&
-//                Nodo->celdas[opciones[i][0]] == Nodo->celdas[opciones[i][1]] &&
-//                Nodo->celdas[opciones[i][0]] == Nodo->celdas[opciones[i][2]])
-//            res = Nodo->celdas[opciones[i][2]]; //indica que jugador ocupa las casillas ganadoras
-//        i++;
-//    }
-    return res * 100 * jugador;
+void inicializaPiezasNegras(tNodo *actual) {
+    actual->piezas[1][0][0] = 0;
+    actual->piezas[1][0][1] = 0;
+    actual->piezas[1][1][0] = 1;
+    actual->piezas[1][1][1] = 0;
 }
 
-int imin(int v1, int v2) {
-    return (v1 > v2) ? v2 : v1;
+tNodo *aplicaJugada(tNodo *actual, int jugador, int jugada, int selectorFicha) {
+
 }
 
-int imax(int v1, int v2) {
-    return (v1 > v2) ? v1 : v2;
-}
-
-int heuristica(tNodo *nodo, int jugador, int pos) {
-    int mejorJugada = 0, i;
-    unsigned opciones[8][3] = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+int esValida(tNodo *actual, int jugada, int selectorFicha) {
     return 1;
 }
 
-////////////////////////////////////////
-//  VISUALIZACIÓN DE NodoS
-////////////////////////////////////////
-
-char marca(int i) {
-    switch(i) {
-    case 1:
-        return 'X';
-    case 0:
-        return ' ';
-    case -1:
-        return 'O';
-    default:
-        return ' ';
-    }
+int piezaFuera(tNodo *actual, int jugador, int pieza) {
+    return actual->piezas[jugador][pieza][0] == -1 && actual->piezas[jugador][pieza][1] == -1;
 }
 
-void dispNodo(tNodo *b) {
-    printf("---+---+---\n");
-    printf(" %c | %c | %c\n", marca(b->celdas[0]), marca(b->celdas[1]), marca(b->celdas[2]));
-    printf("---+---+---\n");
-    printf(" %c | %c | %c\n", marca(b->celdas[3]), marca(b->celdas[4]), marca(b->celdas[5]));
-    printf("---+---+---\n");
-    printf(" %c | %c | %c\n", marca(b->celdas[6]), marca(b->celdas[7]), marca(b->celdas[8]));
-    printf("---+---+---\n\n");
+int terminal(tNodo *actual, int jugador) {
+    return piezaFuera(actual, jugador, 0) && piezaFuera(actual, jugador, 1);
 }
 
+void dispNodo(tNodo *actual) {
+    printf("IMPRIMIENDO ESTADO ACTUAL:\n");
+    int i = 0, j = 0;
+    do {
+        j = 0;
+        imprimeLineaMatriz();
+        printf("|");
+        do {
+            imprimeSimboloDePieza(actual->celdas[i][j]);
+            j++;
+        } while(j < 3);
+        printf("\n");
+        i++;
+    } while(i < 3);
+    imprimeLineaMatriz();
+    dispPiezas(actual);
+}
 
-
-
-
-
+void dispPiezas(tNodo *actual) {
+    printf("Piezas blancas:\n[%d, %d] y [%d, %d]\n", actual->piezas[0][0][0],
+           actual->piezas[0][0][1],
+           actual->piezas[0][1][0],
+           actual->piezas[0][1][1]);
+    printf("Piezas negras:\n[%d, %d] y [%d, %d]\n", actual->piezas[1][0][0],
+           actual->piezas[1][0][1],
+           actual->piezas[1][1][0],
+           actual->piezas[1][1][1]);
+}

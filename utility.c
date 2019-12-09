@@ -3,14 +3,22 @@
 
 #include "utility.h"
 
-void red() {
-  printf("\033[1;31m");
+void imprimeLineaMatriz() {
+    printf("+---+---+---+\n");
 }
 
-void yellow() {
-  printf("\033[1;33m");
-}
-
-void reset() {
-  printf("\033[0m");
+void imprimeSimboloDePieza(int val) {
+    char simbolo;
+    switch(val) {
+    case 1:
+        simbolo = 'o';
+        break;
+    case -1:
+        simbolo = 254;
+        break;
+    case 0:
+        simbolo = ' ';
+        break;
+    }
+    printf(" %c |", simbolo);
 }
