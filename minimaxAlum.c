@@ -9,30 +9,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "tictactoe.h"
+#include "fichas.h"
 #include "minimaxAlum.h"
 
 
-
-tNodo *PSEUDOminimax(tNodo *t) {
-    int mejorJugada = -1;
-    int puntos = -2;
-    int i, temp;
-    tNodo *intento = malloc(sizeof(tNodo));
-    printf("\n Mi turno: \n");
-    for(i = 0; i < 9; ++i) {
-        if (esValida(t, i)) {
-            intento = aplicaJugada(t, 1, i); //Intenta jugada
-            temp = terminal(intento, -1); // Calcula el valor minimax
-            if(temp > puntos) {
-                puntos = temp;
-                mejorJugada = i;
-            }
-        }
-    }//for
-    t = aplicaJugada(t, 1, mejorJugada);
-    return t;
-}
 
 tNodo *jugadaAdversario(tNodo *t) {
     int jugada = 0;
