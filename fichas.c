@@ -11,25 +11,22 @@ tNodo *estadoInicial() {
     return crearNodo(tablero_inicial);
 }
 
-tNodo *crearNodo(int celdas[N]) {
-    tNodo *Nodo = (tNodo *) malloc(sizeof(tNodo));
-    int i, c;
-    Nodo->vacias = 0;
+tNodo *crearNodo(int celdas[N][N]) {
+    tNodo *nodo = (tNodo *) malloc(sizeof(tNodo));
+    int i, j;
     for (i = 0; i < N; i++) {
-        c = celdas[i];
-        Nodo->celdas[i] = c;
-        if (c == 0)
-            Nodo->vacias = Nodo->vacias + 1;
+        for(j = 0; j < N; j++) {
+            nodo->celdas[i][j] = celdas[i][j];
+        }
     }
-    return Nodo;
+    return nodo;
 }
 
 
 tNodo *aplicaJugada(tNodo *actual, int jugador, int jugada) {
     tNodo *nuevo = (tNodo *) malloc(sizeof(tNodo));
     memcpy(nuevo, actual, sizeof(tNodo));
-    nuevo->celdas[jugada] = jugador;
-    nuevo->vacias--;  // marca la posición que indica pone la marca del jugador
+//    nuevo->celdas[jugada][] = jugador;
     return nuevo;
 }
 int esValida(tNodo *actual, int jugada) {
@@ -39,20 +36,16 @@ int opuesto( int jugador) {
     return (jugador * -1);//Jugador 1 y Jugador -1
 }
 
-int lleno(tNodo *tablero) {
-    return (tablero->vacias != 0);
-}
-
 int terminal(tNodo *Nodo, int jugador) {
 
     int i = 0, res = 0;
-    while (res == 0 && i < 8) {
-        if(Nodo->celdas[opciones[i][0]] != 0 &&
-                Nodo->celdas[opciones[i][0]] == Nodo->celdas[opciones[i][1]] &&
-                Nodo->celdas[opciones[i][0]] == Nodo->celdas[opciones[i][2]])
-            res = Nodo->celdas[opciones[i][2]]; //indica que jugador ocupa las casillas ganadoras
-        i++;
-    }
+//    while (res == 0 && i < 8) {
+//        if(Nodo->celdas[opciones[i][0]] != 0 &&
+//                Nodo->celdas[opciones[i][0]] == Nodo->celdas[opciones[i][1]] &&
+//                Nodo->celdas[opciones[i][0]] == Nodo->celdas[opciones[i][2]])
+//            res = Nodo->celdas[opciones[i][2]]; //indica que jugador ocupa las casillas ganadoras
+//        i++;
+//    }
     return res * 100 * jugador;
 }
 
@@ -65,33 +58,9 @@ int imax(int v1, int v2) {
 }
 
 int heuristica(tNodo *nodo, int jugador, int pos) {
-    int mejorJugada=0, i;
-    //unsigned opciones[8][3] = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
-    switch(pos) {
-    case 1:
-        for(i=0; i<=6; i+=3){
-            int comprobar[3]=opciones[i];
-            printf("comprobar[%d]: %d\n", i, comprobar[i]);
-        }
-
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    case 5:
-        break;
-    case 6:
-        break;
-    case 7:
-        break;
-    case 8:
-        break;
-
-    }
-
+    int mejorJugada = 0, i;
+    unsigned opciones[8][3] = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+    return 1;
 }
 
 ////////////////////////////////////////

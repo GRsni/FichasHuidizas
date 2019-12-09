@@ -3,11 +3,10 @@
 
 typedef struct tNodo {
     int celdas[N][N];
-    int bCol, bRow, wCol, wRow;
 } tNodo;
 
 //Ficha blanca: 1, ficha negra -1
-static int tablero_inicial[N] = {
+static int tablero_inicial[N][N] = {
     {-1, 0, 0},
     {-1, 0, 0},
     {0, 1, 1}
@@ -15,7 +14,7 @@ static int tablero_inicial[N] = {
 
 
 
-tNodo *crearNodo(int celdas[N]);
+tNodo *crearNodo(int celdas[N][N]);
 tNodo *NodoInicial();
 
 
