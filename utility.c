@@ -11,10 +11,10 @@ void imprimeSimboloDePieza(int val) {
     char simbolo;
     switch(val) {
     case 1:
-        simbolo = 'o';
+        simbolo = 254;
         break;
     case -1:
-        simbolo = 254;
+        simbolo = 'o';
         break;
     case 0:
         simbolo = ' ';

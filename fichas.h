@@ -1,5 +1,7 @@
 
 #define N 3
+#define BLANCAS 0
+#define NEGRAS 1
 #define ARRIBA 0
 #define DERECHA 1
 #define ABAJO 2
@@ -10,6 +12,7 @@ typedef struct tNodo {
     int celdas[N][N];
     int piezas[2][2][2]; //piezas[0]=blancas, piezas[1]=negras
 } tNodo;
+
 
 //Ficha blanca: 1, ficha negra -1
 static int tablero_inicial[N][N] = {
@@ -31,7 +34,21 @@ void inicializaPiezasNegras(tNodo *actual);
  jugada: indica en qué posición del tablero pondrá la marca
  devuelve: el nuevo Nodo tras aplicar la jugada */
 tNodo *aplicaJugada(tNodo *actual, int jugador, int jugada, int selectorFicha);
-int esValida(tNodo *actual, int jugada, int selectorFicha);
+
+/*Devuelve 1 si la jugada es valida, 0 en otro caso*/
+int esValida(tNodo *actual, int jugada, int jugador, int selectorFicha);
+
+/*Devuelve 1 si es valido mover hacia arriba*/
+int compruebaArriba(tNodo *actual, int jugador, int selectorFicha);
+
+/*Devuelve 1 si es valido mover hacia la derecha*/
+int compruebaDerecha(tNodo *actual, int jugador, int selectorFicha);
+
+/*Devuelve 1 si es valido mover hacia abajo*/
+int compruebaAbajo(tNodo *actual, int jugador, int selectorFicha);
+
+/*Devuelve 1 si es valido mover hacia la izquierda*/
+int compruebaIzquierda(tNodo *actual, int jugador, int selectorFicha);
 
 /* int terminal(tNodo *actual, int jugador)
  funcion que determina si un nodo es terminal, ha ganado MAX o MIN
@@ -42,7 +59,7 @@ int terminal(tNodo *actual, int jugador);
 
 void dispNodo(tNodo *s);
 void dispPiezas(tNodo *actual);
-
+void dispOperador(int jugada);
 int imin(int v1, int v2);
 
 int imax(int v1, int v2);
