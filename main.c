@@ -17,12 +17,17 @@ int main() {
     tNodo *juego = estadoInicial();
     dispNodo(juego);
 
-    for(int i = ARRIBA; i < NUM_MOVIMIENTOS; i++) {
+    for(int i = ARRIBA_0; i < NUM_MOVIMIENTOS; i++) {
         dispOperador(i);
-        printf("Valido para pieza 1 negra: %d\n", esValida(juego, i, NEGRAS, 0));
-        printf("Valido para pieza 2 negra: %d\n", esValida(juego, i, NEGRAS, 1));
-        printf("Valido para pieza 1 blanca: %d\n", esValida(juego, i, BLANCAS, 0));
-        printf("Valido para pieza 2 blanca: %d\n", esValida(juego, i, BLANCAS, 1));
+        tNodo *nuevo=(tNodo *)malloc(sizeof(tNodo));
+        if(esValida(juego, i, BLANCAS)){
+            nuevo=aplicaJugada(juego, i, BLANCAS);
+            dispNodo(nuevo);
+        }
+        if(esValida(juego, i, NEGRAS)){
+            nuevo=aplicaJugada(juego, i, NEGRAS);
+            dispNodo(nuevo);
+        }
     }
 //
 //    printf("El Agente Inteligente juega con X \nEl Jugador Humano con O \n Elige el turno 1:Primero o 2:Segundo ");
