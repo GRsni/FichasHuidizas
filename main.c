@@ -9,37 +9,27 @@
 #include <stdlib.h>
 #include "fichas.h"
 #include "utility.h"
-//#include "minimaxAlum.h"
+#include "estrategias.h"
 
 int main() {
-//    int jugador;  //+1 o -1
+    int jugador = 1; //+1 o -1, Empieza el humano
     int primero, ganador;
     tNodo *juego = estadoInicial();
-    dispNodo(juego);
 
-    for(int i = ARRIBA_0; i < NUM_MOVIMIENTOS; i++) {
-        dispOperador(i);
-        tNodo *nuevo=(tNodo *)malloc(sizeof(tNodo));
-        if(esValida(juego, i, BLANCAS)){
-            nuevo=aplicaJugada(juego, i, BLANCAS);
-            dispNodo(nuevo);
+    printf("El Agente Inteligente juega con las piezas negras \nEl Jugador Humano con las blancas \n");
+
+    ganador = terminal(juego);
+
+    while(ganador != 0) {
+        if(jugador == 1) {
+            juego = jugadaAdversario(juego);
+        } else if(jugador == -1) {
+            juego = minimax(juego, NEGRAS);
         }
-        if(esValida(juego, i, NEGRAS)){
-            nuevo=aplicaJugada(juego, i, NEGRAS);
-            dispNodo(nuevo);
-        }
+        ganador = terminal(juego);
     }
-//
-//    printf("El Agente Inteligente juega con X \nEl Jugador Humano con O \n Elige el turno 1:Primero o 2:Segundo ");
-//    scanf("%d", &primero);
-//    printf("\n");
-//    if (primero == 1)
-//        jugador = -1; // Turno de Min
-//    else
-//        jugador = 1; // Turno de Max
-//
-////    ganador = terminal(juego, jugador);
-//
+
+
 //    switch(ganador) {
 //    case 100:
 //        printf("\n HE GANADOOOO\n");

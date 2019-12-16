@@ -190,13 +190,25 @@ int compruebaIzquierda(tNodo *actual, int jugador, int selectorFicha) {
 
 int piezaFuera(tNodo *actual, int jugador, int pieza) {
     int row = actual->piezas[jugador][pieza][0];
-    int row = actual->piezas[jugador][pieza][1];
+    int col = actual->piezas[jugador][pieza][1];
     return (col == N || col == -1 || row == N || row == -1);
 }
 
-int terminal(tNodo *actual, int jugador) {
-    return piezaFuera(actual, jugador, 0) && piezaFuera(actual, jugador, 1);
+int terminal(tNodo *actual) {
+    int res = 0;
+    if(piezaFuera(actual, BLANCAS, 0) && piezaFuera(actual, BLANCAS, 1)) {
+        res = 100;
+    } else if(piezaFuera(actual, NEGRAS, 0) && piezaFuera(actual, NEGRAS, 1)) {
+        res = -100;
+    }
+    return res;
 }
+
+
+int heuristica(tNodo * nodo, int jugador, int pos){
+    return 1;
+}
+
 
 void dispNodo(tNodo *actual) {
     printf("Estado ACTUAL:\n");

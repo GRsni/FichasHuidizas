@@ -64,14 +64,12 @@ int compruebaIzquierda(tNodo * actual, int jugador, int selectorFicha);
  actual: tablero actual
  jugador: 1 si es Max, 0 si es Min
  devuelve:  si ha gando MAX 100, si ha ganado MIN -100, o 0 en otro caso */
-int terminal(tNodo * actual, int jugador);
+int terminal(tNodo * actual);
+int piezaFuera(tNodo *actual, int jugador, int pieza);
+
+int heuristica(tNodo * nodo, int jugador, int pos);
 
 void dispNodo(tNodo * s);
 void dispPiezas(tNodo * actual);
 void dispOperador(int jugada);
-int minimo(int v1, int v2);
-
-int minimo(int v1, int v2);
-
-int heuristica(tNodo * nodo, int jugador, int pos);
 

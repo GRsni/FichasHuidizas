@@ -23,3 +23,15 @@ void imprimeSimboloDePieza(int val) {
     }
     printf(" %c |", simbolo);
 }
+
+int minimo(int v1, int v2) {
+    return v1 < v2 ? v1 : v2;
+}
+
+int maximo(int v1, int v2) {
+    return v1 > v2 ? v1 : v2;
+}
+
+int selectorEnRango(int selector, int lower, int upper) {
+    return selector >= lower && selector <= upper;
+}
