@@ -35,3 +35,7 @@ int maximo(int v1, int v2) {
 int selectorEnRango(int selector, int lower, int upper) {
     return selector >= lower && selector <= upper;
 }
+
+int opuesto(int jugador) {
+    return jugador == BLANCAS ? NEGRAS : BLANCAS;
+}

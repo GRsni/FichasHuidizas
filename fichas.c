@@ -48,6 +48,9 @@ void inicializaPiezaCualquiera(tNodo *actual, int jugador, int index, int row, i
 
 tNodo *aplicaJugada(tNodo *actual, int jugada, int jugador) {
     tNodo *nuevo = (tNodo *)malloc(sizeof(tNodo));
+    if(nuevo==NULL){
+        return actual;
+    }
     memcpy(nuevo, actual, sizeof(tNodo));
 
     int selectorPieza = 0;
@@ -191,7 +194,7 @@ int compruebaIzquierda(tNodo *actual, int jugador, int selectorFicha) {
 int piezaFuera(tNodo *actual, int jugador, int pieza) {
     int row = actual->piezas[jugador][pieza][0];
     int col = actual->piezas[jugador][pieza][1];
-    return (col == N || col == -1 || row == N || row == -1);
+    return (col > N - 1 || col < 0 || row > N - 1 || row < 0);
 }
 
 int terminal(tNodo *actual) {
@@ -205,7 +208,7 @@ int terminal(tNodo *actual) {
 }
 
 
-int heuristica(tNodo * nodo, int jugador, int pos){
+int heuristica(tNodo * nodo, int jugador, int pos) {
     return 1;
 }
 

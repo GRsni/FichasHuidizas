@@ -13,22 +13,26 @@ tNodo *jugadaAdversario(tNodo *t) {
     int selectorPieza = 0, jugada = 0;
 
     do {
-        printf("Elige la pieza a mover:[0 o 1]:");
-        scanf("%d", &selectorPieza);
-    } while(!piezaValida(t, selectorPieza));
+        do {
+            printf("Elige la pieza a mover:[0 o 1]:");
+            scanf("%d", &selectorPieza);
+            fflush(stdin);
+        } while(!piezaValida(t, selectorPieza));
 
-    do{
-        printf("Elige una jugada:\nARRIBA: 0\nDERECHA: 1\nABAJO: 2\nIZQUIERDA: 3\n->");
-        scanf("%d", &jugada);
-    }while(!selectorEnRango(jugada, 0, 3));
+        do {
+            printf("Elige una jugada:\nARRIBA: 0\nDERECHA: 1\nABAJO: 2\nIZQUIERDA: 3\n->");
+            scanf("%d", &jugada);
+            fflush(stdin);
+        } while(!selectorEnRango(jugada, 0, 3));
+        jugada = jugada * 2 + selectorPieza;
 
-    while (!esValida(t, jugada, 0)) {
-        printf("\n Intenta otra posicion del tablero \n");
-        printf("\n");
-        printf("\nJugada ([0..8])?: ");
-        scanf("%d", &jugada);
-    }
-    t = aplicaJugada(t, -1, jugada);
+        if(!esValida(t, jugada, BLANCAS)) {
+            printf("Jugada no valida, elige de nuevo.\n");
+        }
+
+    } while(!esValida(t, jugada, BLANCAS));
+
+    t = aplicaJugada(t, jugada, BLANCAS);
     return t;
 }
 
@@ -36,11 +40,12 @@ int piezaValida(tNodo *actual, int selectorPieza) {
     return !piezaFuera(actual, BLANCAS, selectorPieza);
 }
 
-tNodo* minimax(tNodo *nodo, int jugador) {
+tNodo* minimax(tNodo *nodo) {
+    int jugador = NEGRAS;
     int max = 10000, maxActual, jugada, mejorJugada;
     tNodo *intento = (tNodo *)malloc(sizeof(tNodo));
 
-    for(jugada = 1; jugada < N; jugada++) {
+    for(jugada = ARRIBA_0; jugada < NUM_MOVIMIENTOS; jugada++) {
         if(esValida(nodo, jugada, jugador)) {
             intento = aplicaJugada(nodo, jugada, jugador);
             maxActual = valorMin(intento);
@@ -55,12 +60,12 @@ tNodo* minimax(tNodo *nodo, int jugador) {
 }
 
 int valorMax(tNodo *nodo) {
-    int valor_max, jugada, jugador = 1;
+    int valor_max, jugada, jugador = NEGRAS;
     if(terminal(nodo)) {
         valor_max = terminal(nodo);
     } else {
         valor_max = -100000;
-        for(jugada = 1; jugada < N; jugada++) {
+        for(jugada = ARRIBA_0; jugada < NUM_MOVIMIENTOS; jugada++) {
             if(esValida(nodo, jugada, jugador)) {
                 valor_max = maximo(valor_max, valorMin(aplicaJugada(nodo, jugada, jugador)));
             }
@@ -70,12 +75,12 @@ int valorMax(tNodo *nodo) {
 }
 
 int valorMin(tNodo *nodo) {
-    int valor_min, jugada, jugador = -1;
+    int valor_min, jugada, jugador = BLANCAS;
     if(terminal(nodo)) {
         valor_min = terminal(nodo);
     } else {
         valor_min = 100000;
-        for(jugada = 1; jugada < N; jugada++) {
+        for(jugada = ARRIBA_0; jugada < NUM_MOVIMIENTOS; jugada++) {
             if(esValida(nodo, jugada, jugador)) {
                 valor_min = minimo(valor_min, valorMax(aplicaJugada(nodo, jugador, jugada)));
             }

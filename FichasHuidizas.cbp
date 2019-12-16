@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="estrategias.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="estrategias.h" />
 		<Unit filename="fichas.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -38,10 +42,6 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="minimaxAlum.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="minimaxAlum.h" />
 		<Unit filename="utility.c">
 			<Option compilerVar="CC" />
 		</Unit>

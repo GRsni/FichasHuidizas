@@ -1,4 +1,7 @@
 
+#ifndef _FICHAS_H_
+#define _FICHAS_H_
+
 #define N 3
 #define BLANCAS 0
 #define NEGRAS 1
@@ -14,21 +17,17 @@
 #define IZQUIERDA_1 7
 #define NUM_MOVIMIENTOS 8
 
-#ifndef _ESTADOS_
-#define _ESTADOS_
-
 typedef struct tNodo {
     int celdas[N][N];
     int piezas[2][2][2]; //piezas[0]=blancas, piezas[1]=negras
 } tNodo;
 
 static int tablero_inicial[N][N] = {
-    {BLANCAS, ESPACIO, NEGRAS},
-    {ESPACIO, NEGRAS, ESPACIO},
-    {BLANCAS, ESPACIO, ESPACIO}
+    {NEGRAS, ESPACIO, ESPACIO},
+    {NEGRAS, ESPACIO, ESPACIO},
+    {ESPACIO, BLANCAS, BLANCAS}
 };
 
-#endif // _ESTADOS_
 
 tNodo *estadoInicial();
 tNodo *crearNodo(int celdas[N][N]);
@@ -72,4 +71,6 @@ int heuristica(tNodo * nodo, int jugador, int pos);
 void dispNodo(tNodo * s);
 void dispPiezas(tNodo * actual);
 void dispOperador(int jugada);
+
+#endif // _FICHAS_H_
 
