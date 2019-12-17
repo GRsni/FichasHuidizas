@@ -48,7 +48,7 @@ void inicializaPiezaCualquiera(tNodo *actual, int jugador, int index, int row, i
 
 tNodo *aplicaJugada(tNodo *actual, int jugada, int jugador) {
     tNodo *nuevo = (tNodo *)malloc(sizeof(tNodo));
-    if(nuevo==NULL){
+    if(nuevo == NULL) {
         return actual;
     }
     memcpy(nuevo, actual, sizeof(tNodo));
@@ -144,6 +144,8 @@ int compruebaArriba(tNodo *actual, int jugador, int selectorFicha) {
     } else if( actual->celdas[row - 1][col] != ESPACIO) {
         valido = 0;
 
+    } else if(row == -1) {
+        valido = 0;
     }
     return valido;
 }
@@ -159,6 +161,8 @@ int compruebaDerecha(tNodo *actual, int jugador, int selectorFicha) {
     } else if(actual->celdas[row][col + 1] != ESPACIO) {
         valido = 0;
 
+    } else if(col == N) {
+        valido = 0;
     }
     return valido;
 }

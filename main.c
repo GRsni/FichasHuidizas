@@ -11,9 +11,10 @@
 #include "utility.h"
 #include "estrategias.h"
 
+
 int main() {
     int jugador = BLANCAS; //+1 o -1, Empieza el humano
-    int primero, ganador;
+    int ganador = 0;
     tNodo *juego = estadoInicial();
 
     printf("El Agente Inteligente juega con las piezas negras \nEl Jugador Humano con las blancas \n");

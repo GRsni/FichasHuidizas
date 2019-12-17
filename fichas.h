@@ -17,6 +17,8 @@
 #define IZQUIERDA_1 7
 #define NUM_MOVIMIENTOS 8
 
+#define LIMITE_PROF 20
+
 typedef struct tNodo {
     int celdas[N][N];
     int piezas[2][2][2]; //piezas[0]=blancas, piezas[1]=negras
@@ -27,6 +29,7 @@ static int tablero_inicial[N][N] = {
     {NEGRAS, ESPACIO, ESPACIO},
     {ESPACIO, BLANCAS, BLANCAS}
 };
+
 
 
 tNodo *estadoInicial();
