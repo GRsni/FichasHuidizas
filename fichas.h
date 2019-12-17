@@ -17,7 +17,7 @@
 #define IZQUIERDA_1 7
 #define NUM_MOVIMIENTOS 8
 
-#define LIMITE_PROF 20
+#define LIMITE_PROF 10
 
 typedef struct tNodo {
     int celdas[N][N];
@@ -69,7 +69,7 @@ int compruebaIzquierda(tNodo * actual, int jugador, int selectorFicha);
 int terminal(tNodo * actual);
 int piezaFuera(tNodo *actual, int jugador, int pieza);
 
-int heuristica(tNodo * nodo, int jugador, int pos);
+int heuristica(tNodo * nodo, int jugador);
 
 void dispNodo(tNodo * s);
 void dispPiezas(tNodo * actual);

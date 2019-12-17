@@ -5,7 +5,7 @@
 tNodo *jugadaAdversario(tNodo *t);
 tNodo *minimax(tNodo *nodo);
 int piezaValida(tNodo *actual, int selectorPieza);
-int valorMin(tNodo *nodo);
-int valorMax(tNodo *nodo);
+int valorMin(tNodo *nodo, int prof);
+int valorMax(tNodo *nodo, int prof);
 
 #endif // _ESTRATEGIAS_H_

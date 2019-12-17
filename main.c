@@ -11,10 +11,34 @@
 #include "utility.h"
 #include "estrategias.h"
 
+void testFunction() {
+    tNodo *juego = estadoInicial();
+    int i;
+    printf("PROBANDO FUNCION aplicaOperador()\n");
+    dispNodo(juego);
+    for(i = ARRIBA_0; i < NUM_MOVIMIENTOS; i++) {
+        dispOperador(i);
+        if(esValida(juego, i, NEGRAS)) {
+            tNodo *nuevo = aplicaJugada(juego, i, NEGRAS);
+            dispNodo(nuevo);
+        }
+        if(esValida(juego, i, BLANCAS)) {
+            tNodo *nuevo = aplicaJugada(juego, i, BLANCAS);
+            dispNodo(nuevo);
+        }
+    }
+    printf("\n\nPROBANDO esValida()\n");
+    while(esValida(juego, DERECHA_0, NEGRAS)) {
+        dispNodo(juego);
+        juego = aplicaJugada(juego, DERECHA_0, NEGRAS);
+    }
+    dispNodo(juego);
+}
 
-int main() {
+int juego(){
     int jugador = BLANCAS; //+1 o -1, Empieza el humano
     int ganador = 0;
+
     tNodo *juego = estadoInicial();
 
     printf("El Agente Inteligente juega con las piezas negras \nEl Jugador Humano con las blancas \n");
@@ -48,4 +72,12 @@ int main() {
         printf("\n algo ha salido mal en el juego ..\n");
     }
     return 0;
+}
+
+int main() {
+
+
+//    testFunction();
+    return juego();
+
 }
