@@ -17,7 +17,7 @@
 #define IZQUIERDA_1 7
 #define NUM_MOVIMIENTOS 8
 
-#define LIMITE_PROF 10
+#define LIMITE_PROF 3
 
 typedef struct tNodo {
     int celdas[N][N];
@@ -25,9 +25,9 @@ typedef struct tNodo {
 } tNodo;
 
 static int tablero_inicial[N][N] = {
-    {NEGRAS, ESPACIO, ESPACIO},
-    {NEGRAS, ESPACIO, ESPACIO},
-    {ESPACIO, BLANCAS, BLANCAS}
+    {1, -1, -1},
+    {1, -1, -1},
+    {-1, 0, 0}
 };
 
 
@@ -74,6 +74,9 @@ int heuristica(tNodo * nodo, int jugador);
 void dispNodo(tNodo * s);
 void dispPiezas(tNodo * actual);
 void dispOperador(int jugada);
+
+/*Devuelve 1 si aun quedan movimientos posibles para el jugador, 0 en otro caso*/
+int quedanMovimientosPosibles(tNodo *actual, int jugador);
 
 #endif // _FICHAS_H_
 

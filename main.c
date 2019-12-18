@@ -11,7 +11,9 @@
 #include "utility.h"
 #include "estrategias.h"
 
-void testFunction() {
+int juegoFinalizado = 0;
+
+int testFunction() {
     tNodo *juego = estadoInicial();
     int i;
     printf("PROBANDO FUNCION aplicaOperador()\n");
@@ -28,45 +30,46 @@ void testFunction() {
         }
     }
     printf("\n\nPROBANDO esValida()\n");
-    while(esValida(juego, DERECHA_0, NEGRAS)) {
+    while(esValida(juego, ARRIBA_0, NEGRAS)) {
         dispNodo(juego);
-        juego = aplicaJugada(juego, DERECHA_0, NEGRAS);
+        juego = aplicaJugada(juego, ARRIBA_0, NEGRAS);
     }
     dispNodo(juego);
+    return 0;
 }
 
-int juego(){
-    int jugador = BLANCAS; //+1 o -1, Empieza el humano
+int juego() {
+    int jugador = BLANCAS; //0=BLANCAS, 1=NEGRAS
     int ganador = 0;
 
     tNodo *juego = estadoInicial();
 
     printf("El Agente Inteligente juega con las piezas negras \nEl Jugador Humano con las blancas \n");
+    do {
+        printf("Quieres empezar primero o segundo?[0-1]:\n->");
+        scanf("%d", &jugador);
+    } while(!selectorEnRango(jugador, 0, 1));
     dispNodo(juego);
 
-    ganador = terminal(juego);
-
-    while(ganador == 0) {
+    while(!juegoFinalizado) {
         if(jugador == BLANCAS) {
             juego = jugadaAdversario(juego);
         } else if(jugador == NEGRAS) {
             juego = minimax(juego);
         }
-        jugador = opuesto(jugador);
-        ganador = terminal(juego);
+        if(!juegoFinalizado) {
+            jugador = opuesto(jugador);
+        }
         dispNodo(juego);
     }
 
 
-    switch(ganador) {
-    case 100:
+    switch(jugador) {
+    case NEGRAS:
         printf("\n HE GANADOOOO\n");
         break;
-    case 0:
-        printf("\n EMPATE\n");
-        break;
-    case -100:
-        printf("\n Increible pero has ganado tu :(( \n\n");
+    case BLANCAS:
+        printf("\n Increible pero has ganado tu :( \n\n");
         break;
     default:
         printf("\n algo ha salido mal en el juego ..\n");
@@ -77,7 +80,7 @@ int juego(){
 int main() {
 
 
-//    testFunction();
+//    return testFunction();
     return juego();
 
 }

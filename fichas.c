@@ -136,13 +136,13 @@ int esValida(tNodo *actual, int jugada, int jugador) {
 int compruebaArriba(tNodo *actual, int jugador, int selectorFicha) {
     int row = actual->piezas[jugador][selectorFicha][0];
     int col = actual->piezas[jugador][selectorFicha][1];
-    int valido = 1;
+    int valido = 0;
 
     if(row == 0) {
         if(jugador == BLANCAS) {
             valido = 1;
         }
-    } else if(row < 0) {
+    } else if(row > 0) {
         if(actual->celdas[row - 1][col] == ESPACIO) {
             valido = 1;
         }
@@ -164,32 +164,19 @@ int compruebaDerecha(tNodo *actual, int jugador, int selectorFicha) {
             valido = 1;
         }
     }
-
-//    int valido = 1;
-//    if(col == N - 1) {
-//        if(jugador == BLANCAS) {
-//            valido = 0;
-//        }
-//    } else if(actual->celdas[row][col + 1] != ESPACIO) {
-//        valido = 0;
-//
-//    } else if(col == N) {
-//        valido = 0;
-//    }
     return valido;
 }
 
 int compruebaAbajo(tNodo *actual, int jugador, int selectorFicha) {
     int row = actual->piezas[jugador][selectorFicha][0];
     int col = actual->piezas[jugador][selectorFicha][1];
-    int valido = 1;
+    int valido = 0;
 
-    if(jugador == BLANCAS) {
-        valido = 0;
-    } else {
-        if(row == N - 1 || actual->celdas[row + 1][col] != ESPACIO) {
-            valido = 0;
+    if(jugador == NEGRAS) {
+        if(row < N - 1 && actual->celdas[row + 1][col] == ESPACIO) {
+            valido = 1;
         }
+
     }
     return valido;
 }
@@ -197,13 +184,11 @@ int compruebaAbajo(tNodo *actual, int jugador, int selectorFicha) {
 int compruebaIzquierda(tNodo *actual, int jugador, int selectorFicha) {
     int row = actual->piezas[jugador][selectorFicha][0];
     int col = actual->piezas[jugador][selectorFicha][1];
-    int valido = 1;
+    int valido = 0;
 
-    if(jugador == NEGRAS) {
-        valido = 0;
-    } else {
-        if(col == 0 || actual->celdas[row][col - 1] != ESPACIO) {
-            valido = 0;
+    if(jugador == BLANCAS) {
+        if(col > 0 && actual->celdas[row][col - 1] == ESPACIO) {
+            valido = 1;
         }
     }
     return valido;
@@ -218,16 +203,27 @@ int piezaFuera(tNodo *actual, int jugador, int pieza) {
 int terminal(tNodo *actual) {
     int res = 0;
     if(piezaFuera(actual, BLANCAS, 0) && piezaFuera(actual, BLANCAS, 1)) {
-        res = 100;
+        res = 10000;
     } else if(piezaFuera(actual, NEGRAS, 0) && piezaFuera(actual, NEGRAS, 1)) {
-        res = -100;
+        res = -10000;
     }
     return res;
 }
 
-
 int heuristica(tNodo * nodo, int jugador) {
     return 1;
+}
+
+int quedanMovimientosPosibles(tNodo *actual, int jugador) {
+    int jugada = ARRIBA_0;
+    int valido = 0;
+    while(jugada < NUM_MOVIMIENTOS && !valido) {
+        if(esValida(actual, jugada, jugador)) {
+            valido = 1;
+        }
+        jugada++;
+    }
+    return valido;
 }
 
 
