@@ -17,7 +17,7 @@
 #define IZQUIERDA_1 7
 #define NUM_MOVIMIENTOS 8
 
-#define LIMITE_PROF 3
+#define LIMITE_PROF 10
 
 typedef struct tNodo {
     int celdas[N][N];

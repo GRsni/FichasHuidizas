@@ -137,14 +137,15 @@ int compruebaArriba(tNodo *actual, int jugador, int selectorFicha) {
     int row = actual->piezas[jugador][selectorFicha][0];
     int col = actual->piezas[jugador][selectorFicha][1];
     int valido = 0;
-
-    if(row == 0) {
-        if(jugador == BLANCAS) {
-            valido = 1;
-        }
-    } else if(row > 0) {
-        if(actual->celdas[row - 1][col] == ESPACIO) {
-            valido = 1;
+    if(!piezaFuera(actual, jugador, selectorFicha)) {
+        if(row == 0) {
+            if(jugador == BLANCAS) {
+                valido = 1;
+            }
+        } else if(row > 0) {
+            if(actual->celdas[row - 1][col] == ESPACIO) {
+                valido = 1;
+            }
         }
     }
     return valido;
@@ -154,14 +155,15 @@ int compruebaDerecha(tNodo *actual, int jugador, int selectorFicha) {
     int row = actual->piezas[jugador][selectorFicha][0];
     int col = actual->piezas[jugador][selectorFicha][1];
     int valido = 0;
-
-    if(col == N - 1) {
-        if(jugador == NEGRAS) {
-            valido = 1;
-        }
-    } else if(col < N - 1) {
-        if(actual->celdas[row][col + 1] == ESPACIO) {
-            valido = 1;
+    if(!piezaFuera(actual, jugador, selectorFicha)) {
+        if(col == N - 1) {
+            if(jugador == NEGRAS) {
+                valido = 1;
+            }
+        } else if(col < N - 1) {
+            if(actual->celdas[row][col + 1] == ESPACIO) {
+                valido = 1;
+            }
         }
     }
     return valido;
@@ -172,11 +174,12 @@ int compruebaAbajo(tNodo *actual, int jugador, int selectorFicha) {
     int col = actual->piezas[jugador][selectorFicha][1];
     int valido = 0;
 
-    if(jugador == NEGRAS) {
-        if(row < N - 1 && actual->celdas[row + 1][col] == ESPACIO) {
-            valido = 1;
+    if(!piezaFuera(actual, jugador, selectorFicha)) {
+        if(jugador == NEGRAS) {
+            if(row < N - 1 && actual->celdas[row + 1][col] == ESPACIO) {
+                valido = 1;
+            }
         }
-
     }
     return valido;
 }
@@ -185,10 +188,11 @@ int compruebaIzquierda(tNodo *actual, int jugador, int selectorFicha) {
     int row = actual->piezas[jugador][selectorFicha][0];
     int col = actual->piezas[jugador][selectorFicha][1];
     int valido = 0;
-
-    if(jugador == BLANCAS) {
-        if(col > 0 && actual->celdas[row][col - 1] == ESPACIO) {
-            valido = 1;
+    if(!piezaFuera(actual, jugador, selectorFicha)) {
+        if(jugador == BLANCAS) {
+            if(col > 0 && actual->celdas[row][col - 1] == ESPACIO) {
+                valido = 1;
+            }
         }
     }
     return valido;

@@ -40,7 +40,6 @@ int testFunction() {
 
 int juego() {
     int jugador = BLANCAS; //0=BLANCAS, 1=NEGRAS
-    int ganador = 0;
 
     tNodo *juego = estadoInicial();
 
