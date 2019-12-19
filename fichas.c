@@ -215,7 +215,23 @@ int terminal(tNodo *actual) {
 }
 
 int heuristica(tNodo * nodo, int jugador) {
-    return 1;
+    int row1 = nodo->piezas[jugador][0][0];
+    int col1 = nodo->piezas[jugador][0][1];
+    int row2 = nodo->piezas[jugador][1][0];
+    int col2 = nodo->piezas[jugador][1][1];
+    return valores_heuristica[row1][col1] + valores_heuristica[row2][col2];
+}
+
+int distanciaNegras(tNodo *actual) {
+    int col1 = actual->piezas[NEGRAS][0][1];
+    int col2 = actual->piezas[NEGRAS][1][1];
+    return N - col1 + N - col2;
+}
+
+int distanciaBlancas(tNodo *actual) {
+    int row1 = actual->piezas[BLANCAS][0][0];
+    int row2 = actual->piezas[BLANCAS][1][0];
+    return row1 + row2;
 }
 
 int quedanMovimientosPosibles(tNodo *actual, int jugador) {

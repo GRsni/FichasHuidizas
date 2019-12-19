@@ -30,6 +30,12 @@ static int tablero_inicial[N][N] = {
     {-1, 0, 0}
 };
 
+static int valores_heuristica[N][N] = {
+    {2, 3, 4},
+    {1, 2, 3},
+    {0, 1, 3}
+};
+
 
 
 tNodo *estadoInicial();
@@ -70,6 +76,8 @@ int terminal(tNodo * actual);
 int piezaFuera(tNodo *actual, int jugador, int pieza);
 
 int heuristica(tNodo * nodo, int jugador);
+int distanciaNegras(tNodo *actual);
+int distanciaBlancas(tNodo *actual);
 
 void dispNodo(tNodo * s);
 void dispPiezas(tNodo * actual);
