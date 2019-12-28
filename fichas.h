@@ -17,7 +17,11 @@
 #define IZQUIERDA_1 7
 #define NUM_MOVIMIENTOS 8
 
-#define LIMITE_PROF 10
+/**
+* El estado almacena el tablero de 3x3, y las posiciones de las piezas de cada jugador en una matriz tridimensional de 2x2x2
+    El primer nivel separa entre jugadores, el segundo entre la primera y la segunda pieza, y el tercero es la pareja fila, columna
+
+*/
 
 typedef struct tNodo {
     int celdas[N][N];
@@ -30,10 +34,20 @@ static int tablero_inicial[N][N] = {
     {-1, 0, 0}
 };
 
-static int valores_heuristica[N][N] = {
-    {2, 3, 4},
-    {1, 2, 3},
-    {0, 1, 3}
+//static int tablero_inicial[N][N] = {
+//    {0, -1, 1},
+//    {-1, -1, -1},
+//    {1, -1, 0}
+//};
+
+/**
+    La matriz de heuristica tiene una columna y una fila mas para acomodar la posibilidad de salir del tablero
+*/
+static int valores_heuristica[N + 1][N + 1] = {
+    {20, 20, 20, 0},
+    {2, 3, 5, 20},
+    {0, 1, 3, 20},
+    {0, 0, 3, 20}
 };
 
 

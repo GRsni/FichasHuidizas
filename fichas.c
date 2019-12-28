@@ -215,11 +215,47 @@ int terminal(tNodo *actual) {
 }
 
 int heuristica(tNodo * nodo, int jugador) {
-    int row1 = nodo->piezas[jugador][0][0];
-    int col1 = nodo->piezas[jugador][0][1];
-    int row2 = nodo->piezas[jugador][1][0];
-    int col2 = nodo->piezas[jugador][1][1];
-    return valores_heuristica[row1][col1] + valores_heuristica[row2][col2];
+    int row0N = nodo->piezas[NEGRAS][0][0];
+    int col0N = nodo->piezas[NEGRAS][0][1];
+    int row1N = nodo->piezas[NEGRAS][1][0];
+    int col1N = nodo->piezas[NEGRAS][1][1];
+
+    int row0B = nodo->piezas[BLANCAS][0][0];
+    int col0B = nodo->piezas[BLANCAS][0][1];
+    int row1B = nodo->piezas[BLANCAS][1][0];
+    int col1B = nodo->piezas[BLANCAS][1][1];
+    int valorPieza0N = 0, valorPieza1N = 0, valorPieza0B = 0, valorPieza1B = 0;
+
+    if(col0N == N - 1) {
+        valorPieza0N = valores_heuristica[row0N][col0N + 1];
+    } else {
+        valorPieza0N = valores_heuristica[row0N][col0N];
+    }
+    if(col1N == N - 1) {
+        valorPieza1N = valores_heuristica[row1N][col1N + 1];
+    } else {
+        valorPieza1N = valores_heuristica[row1N][col1N];
+    }
+
+    if(row0B == 0) {
+        valorPieza0B = valores_heuristica[row0B][col0B];
+    } else {
+        valorPieza0B = valores_heuristica[row0B+ 1][col0B];
+    }
+    if(row1B == 0) {
+        valorPieza1B = valores_heuristica[row1B][col1B];
+    } else {
+        valorPieza1B = valores_heuristica[row1B + 1][col1B];
+    }
+
+    int valorFinal=0;
+    if(jugador==NEGRAS){
+        valorFinal=valorPieza1N+valorPieza1N-valorPieza0B-valorPieza1B;
+    }else if(jugador==BLANCAS){
+     valorFinal=valorPieza1B+valorPieza1B-valorPieza0N-valorPieza1N;
+    }
+
+    return valorFinal;
 }
 
 int distanciaNegras(tNodo *actual) {
